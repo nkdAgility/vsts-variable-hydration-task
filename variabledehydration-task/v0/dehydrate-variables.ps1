@@ -20,12 +20,12 @@ foreach ($prefix in $prefixesList)
     $PrefixSearch = "Env:$prefix*"
     Write-VstsTaskVerbose "Search Prefix: $PrefixSearch"
     $variables = Get-Childitem -Path $PrefixSearch | select Name,Value
-    Write-Output $variables
 
     Try
     {
         if ($variables.Length -ne 0)
         {
+            Write-Output $variables
             New-Item -ItemType Directory -Force -Path $outpath
             $result = $variables | ConvertTo-Json | Out-File $path
             Write-Output "created $result"
