@@ -23,9 +23,9 @@ foreach ($file in $files)
     Try
     {
         $results = Get-Content -Raw -Path $file | ConvertFrom-Json
+        Write-Output $results
         foreach ($result in $results)
         {
-            Write-Output "$($result.Name) = $($result.Value)"
             Write-Output "##vso[task.setvariable variable=$($result.Name);]$($result.Value)"
         }
         if ($results.Length -eq 0)
