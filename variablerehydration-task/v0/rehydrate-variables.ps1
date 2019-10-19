@@ -23,12 +23,15 @@ foreach ($file in $files)
     Try
     {
         $results = Get-Content -Raw -Path $file | ConvertFrom-Json
-        Write-Output $results
-        foreach ($result in $results)
+        if ($results.Length -ne 0)
         {
-            Write-Output "##vso[task.setvariable variable=$($result.Name);]$($result.Value)"
+            Write-Output $results
+            foreach ($result in $results)
+            {
+                Write-Output "##vso[task.setvariable variable=$($result.Name);]$($result.Value)"
+            }
         }
-        if ($results.Length -eq 0)
+        else
         {
             Write-Output "No variables were found in $file"
         }
