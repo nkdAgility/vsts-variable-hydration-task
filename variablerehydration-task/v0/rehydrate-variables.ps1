@@ -8,7 +8,7 @@ Write-VstsTaskVerbose "jsonfiles: $jsonfiles"
 
 $files = Get-ChildItem -Path $jsonfiles -Recurse
 
-Write-Output "Found $($file.count) files in $jsonfiles" 
+Write-Output "Found $($files.count) files in $jsonfiles" 
 
 if ($files.count -eq 0)
 {
@@ -25,6 +25,7 @@ foreach ($file in $files)
         $results = Get-Content -Raw -Path $file | ConvertFrom-Json
         foreach ($result in $results)
         {
+            Write-Output "$($result.Name) = $($result.Value)"
             Write-Output "##vso[task.setvariable variable=$($result.Name);]$($result.Value)"
         }
     }
