@@ -28,6 +28,10 @@ foreach ($file in $files)
             Write-Output "$($result.Name) = $($result.Value)"
             Write-Output "##vso[task.setvariable variable=$($result.Name);]$($result.Value)"
         }
+        if ($results.Length -eq 0)
+        {
+            Write-Output "No variables were found in $file"
+        }
     }
     Catch
     {
